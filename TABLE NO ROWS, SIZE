@@ -1,0 +1,9 @@
+DECLARE @YourTableName NVARCHAR(100) = ''
+
+SELECT 
+    object_name(object_id) AS name, 
+    record_count,                   -- TOTAL NUMBER OF ROWS
+    avg_record_size_in_bytes,       -- AVERAGE SIZE ROWS IN BYTES
+    (page_count * 8) AS Size_in_kb  -- TOTAL TABLE SIZE
+FROM 
+    sys.dm_db_index_physical_stats (DB_ID(), OBJECT_ID(@YourTableName), NULL, NULL, 'DETAILED')
